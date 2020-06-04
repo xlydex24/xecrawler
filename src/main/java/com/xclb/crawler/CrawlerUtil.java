@@ -14,10 +14,15 @@ import java.util.Map;
 public class CrawlerUtil {
 
     public static Map<String, Object> crawlerApi(Select select, String... urls) {
-        MapPageParser mapPageParser = new MapPageParser();
-        PageLoader pageLoader = getPageLoader(select.getLoader());
-        crawle(true, false, 1, select, 5000, 0, null, 0, null, pageLoader, mapPageParser, urls);
-        return mapPageParser.getModel();
+        return crawlerApi(select, 1, 5000, 0, urls);
+    }
+
+    public static Map<String, Object> crawlerApi(Select select, int threadCount, int timeout, int pause, String... urls) {
+        return crawlerApi(select, threadCount, timeout, pause, null, urls);
+    }
+
+    public static Map<String, Object> crawlerApi(Select select, int threadCount, int timeout, int pause, Map<String, String> cookieMap, String... urls) {
+        return crawlerApi(select, threadCount, timeout, pause, cookieMap, 0, null, urls);
     }
 
     public static Map<String, Object> crawlerApi(Select select,

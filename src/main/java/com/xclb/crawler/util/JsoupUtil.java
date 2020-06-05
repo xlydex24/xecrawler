@@ -18,7 +18,7 @@ import java.util.Set;
 /**
  * jsoup tool
  *
- * @author xuxueli 2015-05-14 22:44:43
+ * @time 2015-05-14 22:44:43
  */
 public class JsoupUtil {
     private static Logger logger = LoggerFactory.getLogger(JsoupUtil.class);
@@ -53,7 +53,8 @@ public class JsoupUtil {
                 conn.referrer(pageRequest.getReferrer());
             }
             conn.timeout(pageRequest.getTimeoutMillis());
-            conn.validateTLSCertificates(pageRequest.isValidateTLSCertificates());
+            //1.11.3版本ssl验证
+//            conn.validateTLSCertificates(pageRequest.isValidateTLSCertificates());
             conn.maxBodySize(0);    // 取消默认1M限制
 
             // 代理
@@ -99,7 +100,7 @@ public class JsoupUtil {
                 conn.referrer(pageRequest.getReferrer());
             }
             conn.timeout(pageRequest.getTimeoutMillis());
-            conn.validateTLSCertificates(pageRequest.isValidateTLSCertificates());
+//            conn.validateTLSCertificates(pageRequest.isValidateTLSCertificates());
             conn.maxBodySize(0);    // 取消默认1M限制
 
             // 代理

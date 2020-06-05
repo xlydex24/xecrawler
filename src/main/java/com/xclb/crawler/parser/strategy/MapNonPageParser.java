@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * non page parser
  *
- * @author xuxueli 2018-10-17
+ * @time 2018-10-17
  */
 
 public class MapNonPageParser extends NonPageParser {

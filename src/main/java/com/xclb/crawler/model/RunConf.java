@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * site info
  *
- * @author xuxueli 2017-12-14 15:52:49
+ * @time 2017-12-14 15:52:49
  */
 public class RunConf {
 

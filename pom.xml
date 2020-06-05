@@ -6,7 +6,7 @@
 
     <groupId>com.xclb</groupId>
     <artifactId>xecrawler</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <name>${project.artifactId}</name>
@@ -22,10 +22,14 @@
         <slf4j-api.version>1.7.25</slf4j-api.version>
         <junit.version>4.11</junit.version>
 
-        <jsoup.version>1.11.2</jsoup.version>
+        <!--<jsoup.version>1.11.3</jsoup.version>-->
+        <jsoup.version>1.13.1</jsoup.version>
         <htmlunit.version>2.36.0</htmlunit.version>
-        <selenium-java.version>2.53.1</selenium-java.version>
+        <!--<selenium-java.version>2.53.1</selenium-java.version>-->
+        <selenium-java.version>3.141.59</selenium-java.version>
+        <selenium-chrome-driver.version>3.141.59</selenium-chrome-driver.version>
         <phantomjs.version>1.4.4</phantomjs.version>
+        <guava.version>29.0-jre</guava.version>
     </properties>
 
 
@@ -63,7 +67,7 @@
             <groupId>net.sourceforge.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
             <version>${htmlunit.version}</version>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
 
         <!-- selenium -->
@@ -71,7 +75,7 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium-java.version}</version>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
 
         <!-- phantomjs -->
@@ -79,14 +83,23 @@
             <groupId>com.codeborne</groupId>
             <artifactId>phantomjsdriver</artifactId>
             <version>${phantomjs.version}</version>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
 
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>25.0-jre</version>
-        </dependency>
+
+        <!--<dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>${selenium-chrome-driver.version}</version>
+        </dependency>-->
+
+
+        <!-- <dependency>
+             <groupId>com.google.guava</groupId>
+             <artifactId>guava</artifactId>
+             <version>25.0-jre</version>
+             &lt;!&ndash;<version>${guava.version}</version>&ndash;&gt;
+         </dependency>-->
 
     </dependencies>
 </project>

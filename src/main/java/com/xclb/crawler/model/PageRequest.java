@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * page load info
  *
- * @author xuxueli 2017-11-10 17:12:55
+ * @time 2017-11-10 17:12:55
  */
 public class PageRequest {
 

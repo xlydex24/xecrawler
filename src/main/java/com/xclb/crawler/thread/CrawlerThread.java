@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * crawler thread
  *
- * @author xuxueli 2017-10-10 10:58:19
+ * @time 2017-10-10 10:58:19
  */
 public class CrawlerThread implements Runnable {
     private static Logger logger = LoggerFactory.getLogger(CrawlerThread.class);

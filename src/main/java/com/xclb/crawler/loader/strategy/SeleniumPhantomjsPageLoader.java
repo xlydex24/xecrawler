@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  *
  * // TODO, selenium not support feature like : paramMap、headerMap、userAgent、referrer、ifPost
  *
- * @author xuxueli 2018-10-16
+ * @time 2018-10-16
  */
 public class SeleniumPhantomjsPageLoader extends PageLoader {
     private static Logger logger = LoggerFactory.getLogger(SeleniumPhantomjsPageLoader.class);

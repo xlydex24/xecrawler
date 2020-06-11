@@ -53,4 +53,13 @@ public class PageLoaderConf {
     public static void setSeleniumChromePageLoader(PageLoader seleniumChromePageLoader) {
         PageLoaderConf.seleniumChromePageLoader = seleniumChromePageLoader;
     }
+
+    public static void setSeleniumPhantomjsPageLoader(String seleniumPhantomjsPageLoader) {
+        PageLoaderConf.seleniumPhantomjsPageLoader = new SeleniumPhantomjsPageLoader(seleniumPhantomjsPageLoader);
+    }
+
+    public static void setSeleniumChromePageLoader(String seleniumChromePageLoader) {
+        PageLoaderConf.seleniumChromePageLoader = new SeleniumChromePageLoader(seleniumChromePageLoader);
+    }
+
 }

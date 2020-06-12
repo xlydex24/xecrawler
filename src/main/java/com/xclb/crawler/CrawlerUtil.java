@@ -22,7 +22,7 @@ public class CrawlerUtil {
     }
 
     public static Map<String, Object> crawlerApi(Select select, int threadCount, int timeout, int pause, Map<String, String> cookieMap, String... urls) {
-        return crawlerApi(select, threadCount, timeout, pause, cookieMap, 0, null, urls);
+        return crawlerApi(select, threadCount, timeout, pause, cookieMap, 2, null, urls);
     }
 
     public static Map<String, Object> crawlerApi(Select select,

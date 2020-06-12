@@ -111,6 +111,12 @@ public class CrawlerThread implements Runnable {
                     if (ret) {
                         break;
                     }
+
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(crawler.getRunConf().getPauseMillis()+1500);
+                    } catch (InterruptedException e) {
+                        logger.info(">>>>>>>>>>> xxl crawler thread is interrupted. 2{}", e.getMessage());
+                    }
                 }
 
             } catch (Throwable e) {
@@ -161,15 +167,18 @@ public class CrawlerThread implements Runnable {
         Document html = crawler.getRunConf().getPageLoader().load(pageRequest);
 
         if (html == null) {
-            Integer loader = crawler.getSelect().getLoader();
-            PageLoader pageLoader = null;
-            if (loader < 1) {
-                pageLoader = PageLoaderConf.getHtmlUnitPageLoader();
-                html = pageLoader.load(pageRequest);
-            }
-            if (html == null) {
-                pageLoader = PageLoaderConf.getSeleniumChromePageLoader();
-                html = pageLoader.load(pageRequest);
+            Integer level = crawler.getSelect().getLevel();
+            if (level>3){
+                Integer loader = crawler.getSelect().getLoader();
+                PageLoader pageLoader = null;
+                if (loader < 1) {
+                    pageLoader = PageLoaderConf.getHtmlUnitPageLoader();
+                    html = pageLoader.load(pageRequest);
+                }
+                if (html == null) {
+                    pageLoader = PageLoaderConf.getSeleniumChromePageLoader();
+                    html = pageLoader.load(pageRequest);
+                }
             }
         }
         return html;

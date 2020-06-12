@@ -14,6 +14,7 @@ public class Select {
     // 1:半动态只要cssQuery，剩下留给model
     // 2:半动态全设置PageFieldSelect，剩下留给model
     // 3:全动态一定设置MapPageParser
+    // 4:失败自增loader
     private Integer level;
     private Integer loader;
 

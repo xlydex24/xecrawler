@@ -5,6 +5,7 @@ package com.xclb.crawler.select;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class Select {
@@ -17,6 +18,11 @@ public class Select {
     // 4:失败自增loader
     private Integer level;
     private Integer loader;
+    private String url;
+    private Integer threadCount;
+    private Integer timeout;
+    private Integer pause;
+    private Map<String, String> cookieMap;
 
     public Select() {
         this.level = 3;
@@ -112,5 +118,45 @@ public class Select {
 
     public void setLoader(Integer loader) {
         this.loader = loader;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Integer getThreadCount() {
+        return threadCount;
+    }
+
+    public void setThreadCount(Integer threadCount) {
+        this.threadCount = threadCount;
+    }
+
+    public Integer getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(Integer timeout) {
+        this.timeout = timeout;
+    }
+
+    public Integer getPause() {
+        return pause;
+    }
+
+    public void setPause(Integer pause) {
+        this.pause = pause;
+    }
+
+    public Map<String, String> getCookieMap() {
+        return cookieMap;
+    }
+
+    public void setCookieMap(Map<String, String> cookieMap) {
+        this.cookieMap = cookieMap;
     }
 }

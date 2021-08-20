@@ -152,8 +152,10 @@ public class FieldSelect {
                 ", cssQuery='" + cssQuery + '\'' +
                 ", selectType='" + selectType + '\'' +
                 ", selectVal='" + selectVal + '\'' +
+                ", datePattern='" + datePattern + '\'' +
+                ", parmClass='" + parmClass + '\'' +
+                ", regex='" + regex + '\'' +
+                ", template='" + template + '\'' +
                 '}';
     }
-
-
 }

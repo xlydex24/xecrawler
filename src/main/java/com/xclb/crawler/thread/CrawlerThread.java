@@ -28,6 +28,7 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.Proxy;
+import java.net.SocketTimeoutException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -68,7 +69,7 @@ public class CrawlerThread implements Runnable {
                 crawler.tryFinish();
                 String link = crawler.getRunData().getUrl();
                 running = true;
-                logger.info(">>>>>>>>>>> xxl crawler, process link : {}", link);
+                logger.debug(">>>>>>>>>>> xxl crawler, process link : {}", link);
                 if (!UrlUtil.isUrl(link)) {
                     continue;
                 }
@@ -92,20 +93,23 @@ public class CrawlerThread implements Runnable {
                             ret = processMapNonPage(pageRequest);
                         } else if (pageParser instanceof MapPageParser) {
                             ret = processMapPage(pageRequest);
-                        }else if (pageParser instanceof ModelPageParser) {
+                        } else if (pageParser instanceof ModelPageParser) {
                             ret = processPage(pageRequest);
                         } else {
                             ret = processPage(pageRequest);
                         }
                     } catch (Throwable e) {
-                        logger.info(">>>>>>>>>>> xxl crawler proocess error.", e);
+                        if (e instanceof SocketTimeoutException) {
+                            logger.warn(">>>>>>>>>>> xxl crawler" + e.getMessage() + link, e);
+                        }
+                        logger.debug(">>>>>>>>>>> xxl crawler proocess error.", e);
                     }
 
                     if (crawler.getRunConf().getPauseMillis() > 0) {
                         try {
                             TimeUnit.MILLISECONDS.sleep(crawler.getRunConf().getPauseMillis());
                         } catch (InterruptedException e) {
-                            logger.info(">>>>>>>>>>> xxl crawler thread is interrupted. 2{}", e.getMessage());
+                            logger.debug(">>>>>>>>>>> xxl crawler thread is interrupted. 2{}", e.getMessage());
                         }
                     }
                     if (ret) {
@@ -113,17 +117,17 @@ public class CrawlerThread implements Runnable {
                     }
 
                     try {
-                        TimeUnit.MILLISECONDS.sleep(crawler.getRunConf().getPauseMillis()+1500);
+                        TimeUnit.MILLISECONDS.sleep(crawler.getRunConf().getPauseMillis() + 1500);
                     } catch (InterruptedException e) {
-                        logger.info(">>>>>>>>>>> xxl crawler thread is interrupted. 2{}", e.getMessage());
+                        logger.debug(">>>>>>>>>>> xxl crawler thread is interrupted. 2{}", e.getMessage());
                     }
                 }
 
             } catch (Throwable e) {
                 if (e instanceof InterruptedException) {
-                    logger.info(">>>>>>>>>>> xxl crawler thread is interrupted. {}", e.getMessage());
+                    logger.debug(">>>>>>>>>>> xxl crawler thread is interrupted. {}", e.getMessage());
                 } else if (e instanceof XxlCrawlerException) {
-                    logger.info(">>>>>>>>>>> xxl crawler thread {}", e.getMessage());
+                    logger.debug(">>>>>>>>>>> xxl crawler thread {}", e.getMessage());
                 } else {
                     logger.error(e.getMessage(), e);
                 }
@@ -163,12 +167,12 @@ public class CrawlerThread implements Runnable {
         return pageRequest;
     }
 
-    private Document load(PageRequest pageRequest){
+    private Document load(PageRequest pageRequest) {
         Document html = crawler.getRunConf().getPageLoader().load(pageRequest);
 
         if (html == null) {
             Integer level = crawler.getSelect().getLevel();
-            if (level>3){
+            if (level > 3) {
                 Integer loader = crawler.getSelect().getLoader();
                 PageLoader pageLoader = null;
                 if (loader < 1) {
@@ -218,9 +222,9 @@ public class CrawlerThread implements Runnable {
         return true;
     }
 
-    private boolean processMapPage(PageRequest pageRequest)  {
+    private boolean processMapPage(PageRequest pageRequest) {
         String baseUrl = pageRequest.getUrl();
-        Document html=load(pageRequest);
+        Document html = load(pageRequest);
 
         if (html == null) {
             return false;
@@ -307,7 +311,7 @@ public class CrawlerThread implements Runnable {
         if (baseUrl == null) {
             baseUrl = pageRequest.getUrl();
         }
-        map.put("baseUrl", baseUrl);
+        map.put("url", baseUrl);
         crawler.getRunConf().getPageParser().parse(html, Element, map);
 
         return true;
@@ -317,7 +321,7 @@ public class CrawlerThread implements Runnable {
         Map<String, Object> pageVo = new HashMap<>();
         if (fieldSelectList != null) {
             for (FieldSelect fieldSelect : fieldSelectList) {
-                List<String> name = StringUtil.split(fieldSelect.getParmname(),"\\.");
+                List<String> name = StringUtil.split(fieldSelect.getParmname(), "\\.");
                 String cssQuery = fieldSelect.getCssQuery().replaceAll("&gt;", ">");
                 String selectType = fieldSelect.getSelectType();
                 String selectVal = fieldSelect.getSelectVal();
@@ -437,6 +441,7 @@ public class CrawlerThread implements Runnable {
                     }
                 }
 
+
                 pageVo.put(name.get(0), fieldValue);
             }
         }
@@ -536,7 +541,7 @@ public class CrawlerThread implements Runnable {
                                             continue;
                                         }
                                         try {
-                                            fieldValueTmp.add(ElementUtil.parseValue(field,datePattern, fieldElementOrigin));
+                                            fieldValueTmp.add(ElementUtil.parseValue(field, datePattern, fieldElementOrigin));
                                         } catch (Exception e) {
                                             logger.error(e.getMessage(), e);
                                         }
@@ -560,7 +565,7 @@ public class CrawlerThread implements Runnable {
                             }
 
                             try {
-                                fieldValue = ElementUtil.parseValue(field,datePattern,fieldValueOrigin);
+                                fieldValue = ElementUtil.parseValue(field, datePattern, fieldValueOrigin);
                             } catch (Exception e) {
                                 logger.error(e.getMessage(), e);
                             }

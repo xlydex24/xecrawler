@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -71,7 +72,11 @@ public class JsoupUtil {
             }
             return html;
         } catch (IOException e) {
-            logger.error(e.getMessage(), e);
+            if (e instanceof SocketTimeoutException) {
+                logger.warn(">>>>>>>>>>> xxl crawler" + e.getMessage() + pageRequest.getUrl());
+            }else {
+                logger.error(e.getMessage(), e);
+            }
             return null;
         }
     }

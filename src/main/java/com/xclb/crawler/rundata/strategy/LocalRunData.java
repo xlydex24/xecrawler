@@ -43,7 +43,7 @@ public class LocalRunData extends RunData {
             return false; // check 未记录过
         }
         unVisitedUrlQueue.add(link);
-        logger.info(">>>>>>>>>>> xxl-crawler addUrl success, link: {}", link);
+        logger.debug(">>>>>>>>>>> xxl-crawler addUrl success, link: {}", link);
         return true;
     }
 

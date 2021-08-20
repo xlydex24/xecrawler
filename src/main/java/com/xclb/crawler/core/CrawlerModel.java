@@ -20,9 +20,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- *  xxl crawler
- *
- *  Created by xuxueli on 2015-05-14 22:44:43
+ * xxl crawler
+ * <p>
+ * Created by xuxueli on 2015-05-14 22:44:43
  */
 public class CrawlerModel {
     private static Logger logger = LoggerFactory.getLogger(CrawlerModel.class);
@@ -76,13 +76,14 @@ public class CrawlerModel {
         private CrawlerModel crawler = new CrawlerModel();
 
         // run data
+
         /**
          * 设置运行数据类型
          *
          * @param runData
          * @return Builder
          */
-        public Builder setRunData(RunData runData){
+        public Builder setRunData(RunData runData) {
             crawler.runData = runData;
             return this;
         }
@@ -94,8 +95,8 @@ public class CrawlerModel {
          * @return Builder
          */
         public Builder setUrls(String... urls) {
-            if (urls!=null && urls.length>0) {
-                for (String url: urls) {
+            if (urls != null && urls.length > 0) {
+                for (String url : urls) {
                     crawler.runData.addUrl(url);
                 }
             }
@@ -103,6 +104,7 @@ public class CrawlerModel {
         }
 
         // run conf
+
         /**
          * 允许扩散爬取，将会以现有URL为起点扩散爬取整站
          *
@@ -121,8 +123,8 @@ public class CrawlerModel {
          * @return Builder
          */
         public Builder setWhiteUrlRegexs(String... whiteUrlRegexs) {
-            if (whiteUrlRegexs!=null && whiteUrlRegexs.length>0) {
-                for (String whiteUrlRegex: whiteUrlRegexs) {
+            if (whiteUrlRegexs != null && whiteUrlRegexs.length > 0) {
+                for (String whiteUrlRegex : whiteUrlRegexs) {
                     crawler.runConf.getWhiteUrlRegexs().add(whiteUrlRegex);
                 }
             }
@@ -135,7 +137,7 @@ public class CrawlerModel {
          * @param pageParser
          * @return Builder
          */
-        public Builder setPageParser(PageParser pageParser){
+        public Builder setPageParser(PageParser pageParser) {
             crawler.runConf.setPageParser(pageParser);
             return this;
         }
@@ -146,19 +148,20 @@ public class CrawlerModel {
          * @param pageLoader
          * @return Builder
          */
-        public Builder setPageLoader(PageLoader pageLoader){
+        public Builder setPageLoader(PageLoader pageLoader) {
             crawler.runConf.setPageLoader(pageLoader);
             return this;
         }
 
         // site
+
         /**
          * 请求参数
          *
          * @param paramMap
          * @return Builder
          */
-        public Builder setParamMap(Map<String, String> paramMap){
+        public Builder setParamMap(Map<String, String> paramMap) {
             crawler.runConf.setParamMap(paramMap);
             return this;
         }
@@ -169,7 +172,7 @@ public class CrawlerModel {
          * @param cookieMap
          * @return Builder
          */
-        public Builder setCookieMap(Map<String, String> cookieMap){
+        public Builder setCookieMap(Map<String, String> cookieMap) {
             crawler.runConf.setCookieMap(cookieMap);
             return this;
         }
@@ -180,7 +183,7 @@ public class CrawlerModel {
          * @param headerMap
          * @return Builder
          */
-        public Builder setHeaderMap(Map<String, String> headerMap){
+        public Builder setHeaderMap(Map<String, String> headerMap) {
             crawler.runConf.setHeaderMap(headerMap);
             return this;
         }
@@ -191,9 +194,9 @@ public class CrawlerModel {
          * @param userAgents
          * @return Builder
          */
-        public Builder setUserAgent(String... userAgents){
-            if (userAgents!=null && userAgents.length>0) {
-                for (String userAgent: userAgents) {
+        public Builder setUserAgent(String... userAgents) {
+            if (userAgents != null && userAgents.length > 0) {
+                for (String userAgent : userAgents) {
                     if (!crawler.runConf.getUserAgentList().contains(userAgent)) {
                         crawler.runConf.getUserAgentList().add(userAgent);
                     }
@@ -208,7 +211,7 @@ public class CrawlerModel {
          * @param referrer
          * @return Builder
          */
-        public Builder setReferrer(String referrer){
+        public Builder setReferrer(String referrer) {
             crawler.runConf.setReferrer(referrer);
             return this;
         }
@@ -219,7 +222,7 @@ public class CrawlerModel {
          * @param ifPost
          * @return Builder
          */
-        public Builder setIfPost(boolean ifPost){
+        public Builder setIfPost(boolean ifPost) {
             crawler.runConf.setIfPost(ifPost);
             return this;
         }
@@ -230,7 +233,7 @@ public class CrawlerModel {
          * @param timeoutMillis
          * @return Builder
          */
-        public Builder setTimeoutMillis(int timeoutMillis){
+        public Builder setTimeoutMillis(int timeoutMillis) {
             crawler.runConf.setTimeoutMillis(timeoutMillis);
             return this;
         }
@@ -241,7 +244,7 @@ public class CrawlerModel {
          * @param pauseMillis
          * @return Builder
          */
-        public Builder setPauseMillis(int pauseMillis){
+        public Builder setPauseMillis(int pauseMillis) {
             crawler.runConf.setPauseMillis(pauseMillis);
             return this;
         }
@@ -252,7 +255,7 @@ public class CrawlerModel {
          * @param proxyMaker
          * @return Builder
          */
-        public Builder setProxyMaker(ProxyMaker proxyMaker){
+        public Builder setProxyMaker(ProxyMaker proxyMaker) {
             crawler.runConf.setProxyMaker(proxyMaker);
             return this;
         }
@@ -263,7 +266,7 @@ public class CrawlerModel {
          * @param failRetryCount
          * @return Builder
          */
-        public Builder setFailRetryCount(int failRetryCount){
+        public Builder setFailRetryCount(int failRetryCount) {
             if (failRetryCount > 0) {
                 crawler.runConf.setFailRetryCount(failRetryCount);
             }
@@ -271,6 +274,7 @@ public class CrawlerModel {
         }
 
         // thread
+
         /**
          * 爬虫并发线程数
          *
@@ -297,9 +301,9 @@ public class CrawlerModel {
     /**
      * 启动
      *
-     * @param sync  true=同步方式、false=异步方式
+     * @param sync true=同步方式、false=异步方式
      */
-    public void start(boolean sync){
+    public void start(boolean sync) {
         if (runData == null) {
             throw new RuntimeException("xxl crawler runData can not be null.");
         }
@@ -309,7 +313,7 @@ public class CrawlerModel {
         if (runConf == null) {
             throw new RuntimeException("xxl crawler runConf can not be empty.");
         }
-        if (threadCount<1 || threadCount>1000) {
+        if (threadCount < 0 || threadCount > 1000) {
             throw new RuntimeException("xxl crawler threadCount invalid, threadCount : " + threadCount);
         }
         if (runConf.getPageLoader() == null) {
@@ -319,41 +323,53 @@ public class CrawlerModel {
             throw new RuntimeException("xxl crawler pageParser can not be null.");
         }
 
-        logger.info(">>>>>>>>>>> xxl crawler start ...");
-        for (int i = 0; i < threadCount; i++) {
-            CrawlerThread crawlerThread = new CrawlerThread(this);
-            crawlerThreads.add(crawlerThread);
-        }
-        for (CrawlerThread crawlerThread: crawlerThreads) {
-            crawlers.execute(crawlerThread);
-        }
-        crawlers.shutdown();
+        logger.debug(">>>>>>>>>>> xxl crawler start ...");
 
-        if (sync) {
-            try {
-                while (!crawlers.awaitTermination(5, TimeUnit.SECONDS)) {
-                    logger.info(">>>>>>>>>>> xxl crawler still running ...");
+        if (threadCount == 0) {
+            CrawlerThread crawlerThread = new CrawlerThread(this);
+            if (sync) {
+                crawlerThread.run();
+            }else {
+                crawlers.execute(crawlerThread);
+            }
+        } else {
+            for (int i = 0; i < threadCount; i++) {
+                CrawlerThread crawlerThread = new CrawlerThread(this);
+                crawlerThreads.add(crawlerThread);
+            }
+            for (CrawlerThread crawlerThread : crawlerThreads) {
+                crawlers.execute(crawlerThread);
+            }
+            crawlers.shutdown();
+
+            if (sync) {
+                try {
+                    while (!crawlers.awaitTermination(1, TimeUnit.SECONDS)) {
+                        logger.debug(">>>>>>>>>>> xxl crawler still running ...");
+                    }
+                } catch (InterruptedException e) {
+                    logger.error(e.getMessage(), e);
                 }
-            } catch (InterruptedException e) {
-                logger.error(e.getMessage(), e);
             }
         }
+
+
     }
 
     /**
      * 尝试终止
      */
-    public void tryFinish(){
+    public void tryFinish() {
         boolean isRunning = false;
-        for (CrawlerThread crawlerThread: crawlerThreads) {
+        for (CrawlerThread crawlerThread : crawlerThreads) {
             if (crawlerThread.isRunning()) {
                 isRunning = true;
                 break;
             }
         }
-        boolean isEnd = runData.getUrlNum()==0 && !isRunning;
+        boolean isEnd = runData.getUrlNum() == 0 && !isRunning;
         if (isEnd) {
-            logger.info(">>>>>>>>>>> xxl crawler is finished.");
+            logger.debug(">>>>>>>>>>> xxl crawler is finished.");
             stop();
         }
     }
@@ -361,12 +377,12 @@ public class CrawlerModel {
     /**
      * 终止
      */
-    public void stop(){
-        for (CrawlerThread crawlerThread: crawlerThreads) {
+    public void stop() {
+        for (CrawlerThread crawlerThread : crawlerThreads) {
             crawlerThread.toStop();
         }
         crawlers.shutdownNow();
-        logger.info(">>>>>>>>>>> xxl crawler stop.");
+        logger.debug(">>>>>>>>>>> xxl crawler stop.");
     }
 
 }

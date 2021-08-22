@@ -1,14 +1,14 @@
 package com.xclb.crawler.select;
 
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 
 public class Select {
+
+    private String type;
 
     private List<SelectChild> crawlerSelectChildList;
     // 0:定制化全静态
@@ -22,7 +22,12 @@ public class Select {
     private Integer threadCount;
     private Integer timeout;
     private Integer pause;
+    private Integer retryCount;
     private Map<String, String> cookieMap;
+    private Map<String, String> headerMap;
+    private String userAgents;
+    private String referrer;
+    private Boolean ifPost = false;
 
     public Select() {
         this.level = 3;
@@ -158,5 +163,54 @@ public class Select {
 
     public void setCookieMap(Map<String, String> cookieMap) {
         this.cookieMap = cookieMap;
+    }
+
+    public Map<String, String> getHeaderMap() {
+        return headerMap;
+    }
+
+    public void setHeaderMap(Map<String, String> headerMap) {
+        this.headerMap = headerMap;
+    }
+
+    public Integer getRetryCount() {
+        return retryCount;
+    }
+
+    public void setRetryCount(Integer retryCount) {
+        this.retryCount = retryCount;
+    }
+
+    public String getUserAgents() {
+        return userAgents;
+    }
+
+    public void setUserAgents(String userAgents) {
+        this.userAgents = userAgents;
+    }
+
+    public String getReferrer() {
+        return referrer;
+    }
+
+    public void setReferrer(String referrer) {
+        this.referrer = referrer;
+    }
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Boolean getIfPost() {
+        return ifPost;
+    }
+
+    public void setIfPost(Boolean ifPost) {
+        this.ifPost = ifPost;
     }
 }

@@ -73,7 +73,7 @@ public class JsoupUtil {
             return html;
         } catch (IOException e) {
             if (e instanceof SocketTimeoutException) {
-                logger.warn(">>>>>>>>>>> xxl crawler" + e.getMessage() + pageRequest.getUrl());
+                logger.warn(">>>>>>>>>>> xxl crawler " + e.getMessage()+"," + pageRequest.getUrl());
             }else {
                 logger.error(e.getMessage(), e);
             }

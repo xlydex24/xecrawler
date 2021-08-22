@@ -69,10 +69,13 @@ public class ElementUtil {
             } else if (Map.class.equals(fieldType)) {
                 return parseMap(name[0], value);
             } else if (Short.class.equals(fieldType) || Short.TYPE.equals(fieldType)) {
+                value = value.replaceAll(",", "");
                 return Short.valueOf(value);
             } else if (Integer.class.equals(fieldType) || Integer.TYPE.equals(fieldType)) {
+                value = value.replaceAll(",", "");
                 return Integer.valueOf(value);
             } else if (Long.class.equals(fieldType) || Long.TYPE.equals(fieldType)) {
+                value = value.replaceAll(",", "");
                 return Long.valueOf(value);
             } else if (Float.class.equals(fieldType) || Float.TYPE.equals(fieldType)) {
                 return Float.valueOf(value);

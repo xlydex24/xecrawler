@@ -25,6 +25,7 @@ public class CrawlerUtil {
         return crawlerApi(select, threadCount, timeout, pause, cookieMap, 2, null, urls);
     }
 
+
     public static Map<String, Object> crawlerApi(Select select,
                                                  int threadCount,
                                                  int timeout,
@@ -33,9 +34,21 @@ public class CrawlerUtil {
                                                  int retryCount,
                                                  ProxyMaker proxyMaker,
                                                  String... urls) {
+
+        select.setThreadCount(threadCount);
+        select.setTimeout(timeout);
+        select.setPause(pause);
+        select.setCookieMap(cookieMap);
+        select.setRetryCount(retryCount);
+        return crawlerApi(select, proxyMaker, urls);
+    }
+
+    public static Map<String, Object> crawlerApi(Select select,
+                                                 ProxyMaker proxyMaker,
+                                                 String... urls) {
         MapPageParser mapPageParser = new MapPageParser();
         PageLoader pageLoader = getPageLoader(select.getLoader());
-        crawle(true, false, threadCount, select, timeout, pause, cookieMap, retryCount, proxyMaker, pageLoader, mapPageParser, urls);
+        crawle(true, false, select, proxyMaker, pageLoader, mapPageParser, urls);
         return mapPageParser.getModel();
     }
 
@@ -72,12 +85,12 @@ public class CrawlerUtil {
      *
      * @param sync        同步开关
      * @param allowSpread 扩散开关
-     * @param threadCount 线程数
+     *                    threadCount 线程数
      * @param select      select规则
-     * @param timeout     超时时间，毫秒
-     * @param pause       主动停顿时间
-     * @param cookieMap   cookie
-     * @param retryCount  失败重试次数，大于零时生效
+     *                    timeout     超时时间，毫秒
+     *                    pause       主动停顿时间
+     *                    cookieMap   cookie
+     *                    retryCount  失败重试次数，大于零时生效
      * @param proxyMaker  代理
      * @param pageLoader  引擎
      * @param pageParser  数据模型
@@ -85,30 +98,41 @@ public class CrawlerUtil {
      */
     public static void crawle(boolean sync,
                               boolean allowSpread,
-                              int threadCount,
                               Select select,
-                              int timeout,
-                              int pause,
-                              Map<String, String> cookieMap,
-                              int retryCount,
                               ProxyMaker proxyMaker,
                               PageLoader pageLoader,
                               PageParser pageParser,
                               String... urls) {
+        Integer threadCount = select.getThreadCount();
+        Integer timeout = select.getTimeout();
+        Integer pause = select.getPause();
+        Map<String, String> cookieMap = select.getCookieMap();
+        Map<String, String> headerMap = select.getHeaderMap();
+        Integer retryCount = select.getRetryCount();
+        String userAgents = select.getUserAgents();
+        String referrer = select.getReferrer();
+        Boolean ifPost = select.getIfPost();
+
+
+        CrawlerModel.Builder builder = new CrawlerModel.Builder();
+        builder = builder.setUrls(urls);
+        builder = builder.setAllowSpread(allowSpread);
+        builder = builder.setSelect(select);
+        if (threadCount!=null)  {builder = builder.setThreadCount(threadCount);     }
+        if (timeout!=null)      {builder = builder.setTimeoutMillis(timeout);       }
+        if (pause!=null)        {builder = builder.setPauseMillis(pause);           }
+        if (cookieMap!=null)    {builder = builder.setCookieMap(cookieMap);         }
+        if (headerMap!=null)    {builder = builder.setHeaderMap(headerMap);         }
+        if (retryCount!=null)   {builder = builder.setFailRetryCount(retryCount);   }
+        if (proxyMaker!=null)   {builder = builder.setProxyMaker(proxyMaker);       }
+        if (userAgents!=null)   {builder = builder.setUserAgent(userAgents);        }
+        if (referrer!=null)     {builder = builder.setReferrer(referrer);           }
+        if (ifPost!=null)       {builder = builder.setIfPost(ifPost);               }
+        builder = builder.setPageLoader(pageLoader);
+        builder = builder.setPageParser(pageParser);
+
         // 构造爬虫
-        CrawlerModel crawler = new CrawlerModel.Builder()
-                .setUrls(urls)
-                .setAllowSpread(allowSpread)
-                .setThreadCount(threadCount)
-                .setSelect(select)
-                .setTimeoutMillis(timeout)
-                .setPauseMillis(pause)
-                .setCookieMap(cookieMap)
-                .setFailRetryCount(retryCount)
-                .setProxyMaker(proxyMaker)
-                .setPageLoader(pageLoader)
-                .setPageParser(pageParser)
-                .build();
+        CrawlerModel crawler = builder.build();
         // 启动
         crawler.start(sync);
     }

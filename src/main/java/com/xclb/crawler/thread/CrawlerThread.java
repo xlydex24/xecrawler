@@ -225,6 +225,7 @@ public class CrawlerThread implements Runnable {
     private boolean processMapPage(PageRequest pageRequest) {
         String baseUrl = pageRequest.getUrl();
         Document html = load(pageRequest);
+//        System.err.println(html);
 
         if (html == null) {
             return false;
@@ -364,7 +365,7 @@ public class CrawlerThread implements Runnable {
                     if (fieldElementList != null && fieldElementList.size() > 0) {
 
                         List<Object> fieldValueTmp = (List<Object>) pageVo.get(name.get(0));
-                        if (fieldValueTmp == null) {
+                        if (fieldValueTmp == null || fieldValueTmp.size() == 0) {
                             fieldValueTmp = new ArrayList<>();
                             for (Element fieldElement : fieldElementList) {
 

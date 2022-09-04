@@ -28,6 +28,7 @@ public class Select {
     private String userAgents;
     private String referrer;
     private Boolean ifPost = false;
+    private Boolean ssl = false;
 
     public Select() {
         this.level = 3;
@@ -212,5 +213,13 @@ public class Select {
 
     public void setIfPost(Boolean ifPost) {
         this.ifPost = ifPost;
+    }
+
+    public Boolean getSsl() {
+        return ssl;
+    }
+
+    public void setSsl(Boolean ssl) {
+        this.ssl = ssl;
     }
 }

@@ -69,13 +69,13 @@ public class ElementUtil {
             } else if (Map.class.equals(fieldType)) {
                 return parseMap(name[0], value);
             } else if (Short.class.equals(fieldType) || Short.TYPE.equals(fieldType)) {
-                value = value.replaceAll(",", "");
+                value = replaceAll(value);
                 return Short.valueOf(value);
             } else if (Integer.class.equals(fieldType) || Integer.TYPE.equals(fieldType)) {
-                value = value.replaceAll(",", "");
+                value = replaceAll(value);
                 return Integer.valueOf(value);
             } else if (Long.class.equals(fieldType) || Long.TYPE.equals(fieldType)) {
-                value = value.replaceAll(",", "");
+                value = replaceAll(value);
                 return Long.valueOf(value);
             } else if (Float.class.equals(fieldType) || Float.TYPE.equals(fieldType)) {
                 return Float.valueOf(value);
@@ -90,6 +90,14 @@ public class ElementUtil {
             throw new RuntimeException("parseValue but input illegal input=" + value, e);
         }
     }
+
+    private static String replaceAll(String value) {
+        value = value.replaceAll(",", "");
+        //value = value.replaceAll("K", "000");
+        //value = value.replaceAll("M", "000000");
+        return value;
+    }
+
 
     private static Map<String, String> parseMap(String name, String value) {
         Map<String, String> map = new HashMap<>();

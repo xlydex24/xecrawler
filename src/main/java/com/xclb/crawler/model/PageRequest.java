@@ -20,6 +20,7 @@ public class PageRequest {
     private int timeoutMillis;
     private boolean isValidateTLSCertificates;
     private Proxy proxy;
+    private boolean ssl;
 
     public PageRequest() {
     }
@@ -33,7 +34,9 @@ public class PageRequest {
                        boolean ifPost,
                        int timeoutMillis,
                        boolean isValidateTLSCertificates,
-                       Proxy proxy) {
+                       Proxy proxy,
+                       boolean ssl
+    ) {
         this.url = url;
         this.paramMap = paramMap;
         this.cookieMap = cookieMap;
@@ -44,6 +47,7 @@ public class PageRequest {
         this.timeoutMillis = timeoutMillis;
         this.isValidateTLSCertificates = isValidateTLSCertificates;
         this.proxy = proxy;
+        this.ssl = ssl;
     }
 
     public String getUrl() {
@@ -124,5 +128,13 @@ public class PageRequest {
 
     public void setProxy(Proxy proxy) {
         this.proxy = proxy;
+    }
+
+    public boolean isSsl() {
+        return ssl;
+    }
+
+    public void setSsl(boolean ssl) {
+        this.ssl = ssl;
     }
 }

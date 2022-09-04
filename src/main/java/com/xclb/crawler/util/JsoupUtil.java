@@ -62,6 +62,11 @@ public class JsoupUtil {
             if (pageRequest.getProxy() != null) {
                 conn.proxy(pageRequest.getProxy());
             }
+            if (pageRequest.isSsl()){
+                conn.sslSocketFactory(SSLSocketClient.getSocketFactory());
+                conn.ignoreHttpErrors(true);
+            }
+
 
             // 发出请求
             Document html = null;

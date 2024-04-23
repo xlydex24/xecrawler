@@ -93,8 +93,8 @@ public class ElementUtil {
 
     private static String replaceAll(String value) {
         value = value.replaceAll(",", "");
-        //value = value.replaceAll("K", "000");
-        //value = value.replaceAll("M", "000000");
+        value = value.replaceAll("K", "000");
+        value = value.replaceAll("M", "000000");
         return value;
     }
 

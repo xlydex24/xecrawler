@@ -169,7 +169,11 @@ public class CrawlerThread implements Runnable {
 
     private Document load(PageRequest pageRequest) {
         pageRequest.setSsl(crawler.getSelect().getSsl());
-        Document html = crawler.getRunConf().getPageLoader().load(pageRequest);
+
+        Document html = crawler.getSelect().getHtml();
+        if (html==null){
+            html = crawler.getRunConf().getPageLoader().load(pageRequest);
+        }
 
         if (html == null) {
             Integer level = crawler.getSelect().getLevel();

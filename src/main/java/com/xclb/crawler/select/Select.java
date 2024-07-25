@@ -1,6 +1,8 @@
 package com.xclb.crawler.select;
 
 
+import org.jsoup.nodes.Document;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,7 @@ public class Select {
     private String referrer;
     private Boolean ifPost = false;
     private Boolean ssl = false;
+    private Document html ;
 
     public Select() {
         this.level = 3;
@@ -221,5 +224,13 @@ public class Select {
 
     public void setSsl(Boolean ssl) {
         this.ssl = ssl;
+    }
+
+    public Document getHtml() {
+        return html;
+    }
+
+    public void setHtml(Document html) {
+        this.html = html;
     }
 }

@@ -24,6 +24,7 @@ public class MapPageParser extends PageParser<Map<String, Object>> {
     public void parse(Document document, Element element, Map<String, Object> t) {
         if (modelList.size() <= 0) {
             this.model = t;
+            model.put("document",document);
         }else {
             ModelUtil.MapInMap(this.model,t);
         }

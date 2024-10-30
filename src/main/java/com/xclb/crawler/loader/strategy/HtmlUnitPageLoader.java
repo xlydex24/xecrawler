@@ -1,15 +1,16 @@
 package com.xclb.crawler.loader.strategy;
 
-import com.gargoylesoftware.htmlunit.HttpMethod;
-import com.gargoylesoftware.htmlunit.ProxyConfig;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebRequest;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.util.Cookie;
-import com.gargoylesoftware.htmlunit.util.NameValuePair;
+
 import com.xclb.crawler.loader.PageLoader;
 import com.xclb.crawler.model.PageRequest;
 import com.xclb.crawler.util.UrlUtil;
+import org.htmlunit.HttpMethod;
+import org.htmlunit.ProxyConfig;
+import org.htmlunit.WebClient;
+import org.htmlunit.WebRequest;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.util.Cookie;
+import org.htmlunit.util.NameValuePair;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
@@ -40,12 +41,19 @@ public class HtmlUnitPageLoader extends PageLoader {
             WebRequest webRequest = new WebRequest(new URL(pageRequest.getUrl()));
 
             // 请求设置
+            //使用ssl
             webClient.getOptions().setUseInsecureSSL(true);
+            //js
             webClient.getOptions().setJavaScriptEnabled(true);
+            //css
             webClient.getOptions().setCssEnabled(false);
+            //
             webClient.getOptions().setThrowExceptionOnScriptError(false);
+            //
             webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+            //
             webClient.getOptions().setDoNotTrackEnabled(false);
+            //
             webClient.getOptions().setUseInsecureSSL(!pageRequest.isValidateTLSCertificates());
 
             if (pageRequest.getParamMap() != null && !pageRequest.getParamMap().isEmpty()) {
@@ -77,7 +85,7 @@ public class HtmlUnitPageLoader extends PageLoader {
             if (pageRequest.getProxy() != null) {
                 InetSocketAddress address = (InetSocketAddress) pageRequest.getProxy().address();
                 boolean isSocks = pageRequest.getProxy().type() == Proxy.Type.SOCKS;
-                webClient.getOptions().setProxyConfig(new ProxyConfig(address.getHostName(), address.getPort(), isSocks));
+                webClient.getOptions().setProxyConfig(new ProxyConfig(address.getHostName(), address.getPort(),"", isSocks));
             }
 
             // 发出请求

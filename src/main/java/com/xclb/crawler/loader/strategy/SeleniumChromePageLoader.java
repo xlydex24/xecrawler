@@ -23,6 +23,10 @@ import java.util.concurrent.TimeUnit;
  *
  * @time 2018-10-16
  */
+
+/**
+ * 更新到4.6已经不需要驱动，当前还是3.x版本代码
+ */
 public class SeleniumChromePageLoader extends PageLoader {
     private static Logger logger = LoggerFactory.getLogger(SeleniumChromePageLoader.class);
 

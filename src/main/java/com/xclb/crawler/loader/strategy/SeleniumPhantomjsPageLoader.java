@@ -24,6 +24,11 @@ import java.util.concurrent.TimeUnit;
  *
  * @time 2018-10-16
  */
+
+/**
+ * 弃用了
+ */
+@Deprecated
 public class SeleniumPhantomjsPageLoader extends PageLoader {
     private static Logger logger = LoggerFactory.getLogger(SeleniumPhantomjsPageLoader.class);
 
@@ -40,20 +45,20 @@ public class SeleniumPhantomjsPageLoader extends PageLoader {
 
         // driver init
         DesiredCapabilities dcaps = new DesiredCapabilities();
-        dcaps.setCapability(CapabilityType.ACCEPT_SSL_CERTS, !pageRequest.isValidateTLSCertificates());
-        dcaps.setCapability(CapabilityType.TAKES_SCREENSHOT, false);
-        dcaps.setCapability(CapabilityType.SUPPORTS_FINDING_BY_CSS, true);
-        dcaps.setJavascriptEnabled(true);
-        if (driverPath!=null && driverPath.trim().length()>0) {
-            dcaps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, driverPath);
-        }
-
-        if (pageRequest.getProxy() != null) {
-            dcaps.setCapability(CapabilityType.ForSeleniumServer.AVOIDING_PROXY, true);
-            dcaps.setCapability(CapabilityType.ForSeleniumServer.ONLY_PROXYING_SELENIUM_TRAFFIC, true);
-            System.setProperty("http.nonProxyHosts", "localhost");
-            dcaps.setCapability(CapabilityType.PROXY, pageRequest.getProxy());
-        }
+//        dcaps.setCapability(CapabilityType.ACCEPT_SSL_CERTS, !pageRequest.isValidateTLSCertificates());
+//        dcaps.setCapability(CapabilityType.TAKES_SCREENSHOT, false);
+//        dcaps.setCapability(CapabilityType.SUPPORTS_FINDING_BY_CSS, true);
+//        dcaps.setJavascriptEnabled(true);
+//        if (driverPath!=null && driverPath.trim().length()>0) {
+//            dcaps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, driverPath);
+//        }
+//
+//        if (pageRequest.getProxy() != null) {
+//            dcaps.setCapability(CapabilityType.ForSeleniumServer.AVOIDING_PROXY, true);
+//            dcaps.setCapability(CapabilityType.ForSeleniumServer.ONLY_PROXYING_SELENIUM_TRAFFIC, true);
+//            System.setProperty("http.nonProxyHosts", "localhost");
+//            dcaps.setCapability(CapabilityType.PROXY, pageRequest.getProxy());
+//        }
 
         /*dcaps.setBrowserName(BrowserType.CHROME);
         dcaps.setVersion("70");

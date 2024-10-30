@@ -93,6 +93,7 @@ public class CrawlerThread implements Runnable {
                             ret = processMapNonPage(pageRequest);
                         } else if (pageParser instanceof MapPageParser) {
                             ret = processMapPage(pageRequest);
+                            ((MapPageParser) pageParser).setRef(ret);
                         } else if (pageParser instanceof ModelPageParser) {
                             ret = processPage(pageRequest);
                         } else {

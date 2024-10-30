@@ -1,7 +1,6 @@
 package com.xclb.crawler.parser.strategy;
 
 
-
 import com.xclb.crawler.parser.PageParser;
 import com.xclb.crawler.util.ModelUtil;
 import org.jsoup.nodes.Document;
@@ -17,6 +16,7 @@ import java.util.Map;
 
 public class MapPageParser extends PageParser<Map<String, Object>> {
 
+    private Boolean ref = false;
     private Map<String, Object> model;
     private List<Map<String, Object>> modelList = new ArrayList<>();
 
@@ -24,9 +24,9 @@ public class MapPageParser extends PageParser<Map<String, Object>> {
     public void parse(Document document, Element element, Map<String, Object> t) {
         if (modelList.size() <= 0) {
             this.model = t;
-            model.put("document",document);
-        }else {
-            ModelUtil.MapInMap(this.model,t);
+            model.put("document", document);
+        } else {
+            ModelUtil.MapInMap(this.model, t);
         }
         modelList.add(t);
     }
@@ -45,5 +45,13 @@ public class MapPageParser extends PageParser<Map<String, Object>> {
 
     public void setModelList(List<Map<String, Object>> modelList) {
         this.modelList = modelList;
+    }
+
+    public Boolean getRef() {
+        return ref;
+    }
+
+    public void setRef(Boolean ref) {
+        this.ref = ref;
     }
 }

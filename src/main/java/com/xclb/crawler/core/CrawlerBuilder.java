@@ -44,6 +44,8 @@ public class CrawlerBuilder {
         if (urls != null && urls.length > 0) {
             for (String url : urls) {
                 urlList.add(url);
+                //
+                runData.addUrl(url);
             }
         }
         return this;

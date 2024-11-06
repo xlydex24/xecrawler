@@ -244,12 +244,12 @@ public class CrawlerBuilder {
     }
 
     public CrawlerModel reset() {
-        runData = new LocalRunData();
+        LocalRunData localRunData = new LocalRunData();
         for (String url : urlList) {
-            runData.addUrl(url);
+            localRunData.addUrl(url);
         }
         crawlerModel.setRunConf(runConf);
-        crawlerModel.setRunData(runData);
+        crawlerModel.setRunData(localRunData);
         return crawlerModel;
     }
 }

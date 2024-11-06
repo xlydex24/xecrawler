@@ -8,6 +8,8 @@ import com.xclb.crawler.rundata.RunData;
 import com.xclb.crawler.rundata.strategy.LocalRunData;
 import com.xclb.crawler.select.Select;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class CrawlerBuilder {
@@ -15,7 +17,10 @@ public class CrawlerBuilder {
 
     private volatile RunData runData = new LocalRunData();                          // 运行时数据模型
 
-    private volatile RunConf runConf = new RunConf();                               // 运行时配置
+    private volatile RunConf runConf = new RunConf();                          // 运行时配置
+
+
+    private List<String> urlList = new ArrayList<>();
 
 
     /**
@@ -38,7 +43,7 @@ public class CrawlerBuilder {
     public CrawlerBuilder setUrls(String... urls) {
         if (urls != null && urls.length > 0) {
             for (String url : urls) {
-                this.runData.addUrl(url);
+                urlList.add(url);
             }
         }
         return this;
@@ -233,6 +238,16 @@ public class CrawlerBuilder {
     }
 
     public CrawlerModel build() {
+        crawlerModel.setRunConf(runConf);
+        crawlerModel.setRunData(runData);
+        return crawlerModel;
+    }
+
+    public CrawlerModel reset() {
+        runData = new LocalRunData();
+        for (String url : urlList) {
+            runData.addUrl(url);
+        }
         crawlerModel.setRunConf(runConf);
         crawlerModel.setRunData(runData);
         return crawlerModel;

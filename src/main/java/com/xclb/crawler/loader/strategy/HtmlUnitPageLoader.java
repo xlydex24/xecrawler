@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.Map;
 
@@ -120,7 +121,11 @@ public class HtmlUnitPageLoader extends PageLoader {
                 return html;
             }
         } catch (IOException e) {
-            log.error(e.getMessage(), e);
+            if (e instanceof SocketTimeoutException) {
+                log.warn(">>>>>>>>>>> xxl crawler " + e.getMessage()+"," + pageRequest.getUrl());
+            }else {
+                log.error(">>>>>>>>>>> xxl crawler " + e.getMessage()+"," + pageRequest.getUrl(), e);
+            }
         } finally {
             if (webClient != null) {
                 webClient.close();

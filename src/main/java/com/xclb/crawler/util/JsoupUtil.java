@@ -80,7 +80,7 @@ public class JsoupUtil {
             if (e instanceof SocketTimeoutException) {
                 logger.warn(">>>>>>>>>>> xxl crawler " + e.getMessage()+"," + pageRequest.getUrl());
             }else {
-                logger.error(e.getMessage(), e);
+                logger.error(">>>>>>>>>>> xxl crawler " + e.getMessage()+"," + pageRequest.getUrl(), e);
             }
             return null;
         }

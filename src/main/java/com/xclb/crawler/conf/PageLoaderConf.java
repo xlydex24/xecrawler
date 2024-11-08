@@ -6,10 +6,14 @@ import com.xclb.crawler.loader.strategy.JsoupPageLoader;
 import com.xclb.crawler.loader.strategy.SeleniumChromePageLoader;
 import com.xclb.crawler.loader.strategy.SeleniumPhantomjsPageLoader;
 import com.xclb.crawler.util.PropertiesUtil;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Map;
 import java.util.Properties;
 
+@Setter
+@Getter
 public class PageLoaderConf {
     private static Properties props = PropertiesUtil.getProp("crawler.properties");
 
@@ -21,6 +25,14 @@ public class PageLoaderConf {
     private static PageLoader seleniumPhantomjsPageLoader = new SeleniumPhantomjsPageLoader(PropertiesUtil.getProperty(props,"crawler.phantomjspath","C:/Development/plugins/phantomjs-2.1.1-windows/bin/phantomjs.exe"));
     //支持动态js，需要插件ChromeD
     private static PageLoader seleniumChromePageLoader = new SeleniumChromePageLoader(PropertiesUtil.getProperty(props,"crawler.chromepath","C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe"));
+
+    public static Properties getProps() {
+        return props;
+    }
+
+    public static void setProps(Properties props) {
+        PageLoaderConf.props = props;
+    }
 
     public static PageLoader getJsoupPageLoader() {
         return jsoupPageLoader;
@@ -53,13 +65,4 @@ public class PageLoaderConf {
     public static void setSeleniumChromePageLoader(PageLoader seleniumChromePageLoader) {
         PageLoaderConf.seleniumChromePageLoader = seleniumChromePageLoader;
     }
-
-    public static void setSeleniumPhantomjsPageLoader(String seleniumPhantomjsPageLoader) {
-        PageLoaderConf.seleniumPhantomjsPageLoader = new SeleniumPhantomjsPageLoader(seleniumPhantomjsPageLoader);
-    }
-
-    public static void setSeleniumChromePageLoader(String seleniumChromePageLoader) {
-        PageLoaderConf.seleniumChromePageLoader = new SeleniumChromePageLoader(seleniumChromePageLoader);
-    }
-
 }

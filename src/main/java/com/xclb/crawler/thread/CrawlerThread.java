@@ -7,6 +7,7 @@ import com.xclb.crawler.conf.PageLoaderConf;
 import com.xclb.crawler.core.CrawlerModel;
 import com.xclb.crawler.exception.XxlCrawlerException;
 import com.xclb.crawler.loader.PageLoader;
+import com.xclb.crawler.loader.strategy.HtmlUnitPageLoader;
 import com.xclb.crawler.model.PageRequest;
 import com.xclb.crawler.parser.PageParser;
 import com.xclb.crawler.parser.strategy.MapNonPageParser;
@@ -17,6 +18,7 @@ import com.xclb.crawler.select.FieldSelect;
 import com.xclb.crawler.select.Select;
 import com.xclb.crawler.select.SelectChild;
 import com.xclb.crawler.util.*;
+import org.htmlunit.BrowserVersion;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -172,19 +174,40 @@ public class CrawlerThread implements Runnable {
         pageRequest.setSsl(crawler.getSelect().getSsl());
 
         Document html = crawler.getSelect().getHtml();
-        if (html==null){
+        if (html == null) {
             html = crawler.getRunConf().getPageLoader().load(pageRequest);
         }
 
         if (html == null) {
             Integer level = crawler.getSelect().getLevel();
-            if (level > 3) {
+            if (level == 0) {
+
+            } else if (level == 1) {
+
+            } else if (level == 2) {
+
+            } else if (level == 3) {
                 Integer loader = crawler.getSelect().getLoader();
-                PageLoader pageLoader = null;
-                if (loader < 1) {
-                    pageLoader = PageLoaderConf.getHtmlUnitPageLoader();
+                if (loader == 0) {
+
+                } else if (loader == 1) {
+                    PageLoader pageLoader = new HtmlUnitPageLoader();
+                    html = pageLoader.load(pageRequest);
+                } else if (loader == 2) {
+                    PageLoader pageLoader = new HtmlUnitPageLoader(BrowserVersion.CHROME);
+                    html = pageLoader.load(pageRequest);
+                } else if (loader == 3) {
+                    PageLoader pageLoader = new HtmlUnitPageLoader(BrowserVersion.EDGE);
+                    html = pageLoader.load(pageRequest);
+                } else if (loader == 4) {
+                    PageLoader pageLoader = new HtmlUnitPageLoader(BrowserVersion.FIREFOX);
                     html = pageLoader.load(pageRequest);
                 }
+            } else if (level == 4) {
+
+                PageLoader pageLoader = PageLoaderConf.getHtmlUnitPageLoader();
+                html = pageLoader.load(pageRequest);
+
                 if (html == null) {
                     pageLoader = PageLoaderConf.getSeleniumChromePageLoader();
                     html = pageLoader.load(pageRequest);

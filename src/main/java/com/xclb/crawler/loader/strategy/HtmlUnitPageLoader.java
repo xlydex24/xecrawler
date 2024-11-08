@@ -4,10 +4,10 @@ package com.xclb.crawler.loader.strategy;
 import com.xclb.crawler.loader.PageLoader;
 import com.xclb.crawler.model.PageRequest;
 import com.xclb.crawler.util.UrlUtil;
-import org.htmlunit.HttpMethod;
-import org.htmlunit.ProxyConfig;
-import org.htmlunit.WebClient;
-import org.htmlunit.WebRequest;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import org.htmlunit.*;
 import org.htmlunit.html.HtmlPage;
 import org.htmlunit.util.Cookie;
 import org.htmlunit.util.NameValuePair;
@@ -27,8 +27,20 @@ import java.util.Map;
  *
  * @time 2018-02-06 19:41:39
  */
+@Slf4j
+@Getter
+@Setter
 public class HtmlUnitPageLoader extends PageLoader {
-    private static Logger logger = LoggerFactory.getLogger(HtmlUnitPageLoader.class);
+
+
+    private BrowserVersion newBrowserVersion;
+
+    public HtmlUnitPageLoader() {
+    }
+
+    public HtmlUnitPageLoader(BrowserVersion newBrowserVersion) {
+        this.newBrowserVersion = newBrowserVersion;
+    }
 
     @Override
     public Document load(PageRequest pageRequest) {
@@ -36,7 +48,13 @@ public class HtmlUnitPageLoader extends PageLoader {
             return null;
         }
 
+
         WebClient webClient = new WebClient();
+        if (getNewBrowserVersion()==null){
+
+        }else {
+            webClient = new WebClient(getNewBrowserVersion());
+        }
         try {
             WebRequest webRequest = new WebRequest(new URL(pageRequest.getUrl()));
 
@@ -85,7 +103,7 @@ public class HtmlUnitPageLoader extends PageLoader {
             if (pageRequest.getProxy() != null) {
                 InetSocketAddress address = (InetSocketAddress) pageRequest.getProxy().address();
                 boolean isSocks = pageRequest.getProxy().type() == Proxy.Type.SOCKS;
-                webClient.getOptions().setProxyConfig(new ProxyConfig(address.getHostName(), address.getPort(),"", isSocks));
+                webClient.getOptions().setProxyConfig(new ProxyConfig(address.getHostName(), address.getPort(), "", isSocks));
             }
 
             // 发出请求
@@ -102,7 +120,7 @@ public class HtmlUnitPageLoader extends PageLoader {
                 return html;
             }
         } catch (IOException e) {
-            logger.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);
         } finally {
             if (webClient != null) {
                 webClient.close();

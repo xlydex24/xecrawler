@@ -31,6 +31,7 @@ public class SeleniumChromePageLoader extends PageLoader {
     private static Logger logger = LoggerFactory.getLogger(SeleniumChromePageLoader.class);
 
     private String driverPath;
+
     public SeleniumChromePageLoader(String driverPath) {
         this.driverPath = driverPath;
     }

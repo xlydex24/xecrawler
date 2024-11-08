@@ -33,6 +33,8 @@
         <selenium-chrome-driver.version>3.141.59</selenium-chrome-driver.version>
         <phantomjs.version>1.4.4</phantomjs.version>
         <guava.version>29.0-jre</guava.version>
+
+        <lombok.version>1.18.34</lombok.version>
     </properties>
 
 
@@ -108,6 +110,12 @@
              <version>25.0-jre</version>
              &lt;!&ndash;<version>${guava.version}</version>&ndash;&gt;
          </dependency>-->
-
+        <!--lombok语法糖-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 </project>

@@ -63,7 +63,8 @@ public class HtmlUnitPageLoader extends PageLoader {
             //使用ssl
             webClient.getOptions().setUseInsecureSSL(true);
             //js
-            webClient.getOptions().setJavaScriptEnabled(true);
+            //webClient.getOptions().setJavaScriptEnabled(true);
+            webClient.getOptions().setJavaScriptEnabled(false);
             //css
             webClient.getOptions().setCssEnabled(false);
             //

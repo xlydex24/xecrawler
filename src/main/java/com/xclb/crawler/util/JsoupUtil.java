@@ -3,6 +3,7 @@ package com.xclb.crawler.util;
 
 import com.xclb.crawler.conf.XxlCrawlerConf;
 import com.xclb.crawler.model.PageRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -21,8 +22,8 @@ import java.util.Set;
  *
  * @time 2015-05-14 22:44:43
  */
+@Slf4j
 public class JsoupUtil {
-    private static Logger logger = LoggerFactory.getLogger(JsoupUtil.class);
 
     /**
      * 加载页面
@@ -75,12 +76,13 @@ public class JsoupUtil {
             } else {
                 html = conn.get();
             }
+            log.debug(html.toString());
             return html;
         } catch (IOException e) {
             if (e instanceof SocketTimeoutException) {
-                logger.warn(">>>>>>>>>>> xxl crawler " + e.getMessage()+"," + pageRequest.getUrl());
+                log.warn(">>>>>>>>>>> xxl crawler " + e.getMessage()+"," + pageRequest.getUrl());
             }else {
-                logger.error(">>>>>>>>>>> xxl crawler " + e.getMessage()+"," + pageRequest.getUrl(), e);
+                log.error(">>>>>>>>>>> xxl crawler " + e.getMessage()+"," + pageRequest.getUrl(), e);
             }
             return null;
         }
@@ -126,7 +128,7 @@ public class JsoupUtil {
             String pageSource = resp.body();
             return pageSource;
         } catch (IOException e) {
-            logger.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);
             return null;
         }
     }

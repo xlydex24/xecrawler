@@ -214,6 +214,7 @@ public class CrawlerThread implements Runnable {
                 }
             }
         }
+        crawler.getSelect().setHtml(html);
         return html;
     }
 
